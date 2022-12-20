@@ -6,14 +6,16 @@ from common import InternalBotError, UserBotError
 
 load_dotenv()
 
-TOKEN = os.getenv("BOT_TOKEN")
+#TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("TEST_TOKEN")
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix=(";", "; "), intents=intents, help_command=None)
+bot = commands.Bot(command_prefix=";;", intents=intents, help_command=None)
 
 bot.load_extensions(*(
     "davinci.playground",
+    "davinci.dalle",
     "core.info"
 ))
 
