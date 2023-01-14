@@ -6,8 +6,11 @@ from common import InternalBotError, UserBotError
 
 load_dotenv()
 
-#TOKEN = os.getenv("BOT_TOKEN")
-TOKEN = os.getenv("TEST_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
+#TOKEN = os.getenv("TEST_TOKEN")
+
+if TOKEN is None:
+    raise Exception("You forgot to set the token in .env")
 
 intents = discord.Intents.default()
 intents.message_content = True
