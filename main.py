@@ -4,13 +4,17 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from common import InternalBotError, UserBotError
 
+#load_dotenv("temp.env")
 load_dotenv()
 
 TOKEN = os.getenv("BOT_TOKEN")
 #TOKEN = os.getenv("TEST_TOKEN")
 
 if TOKEN is None:
-    raise Exception("You forgot to set the token in .env")
+    print("You forgot to set the token in .env")
+    print("if you already did go to the line `load_dotenv(\"temp.env\")` and remove")
+    print("it and uncomment the line under it")
+    exit(1)
 
 intents = discord.Intents.default()
 intents.message_content = True

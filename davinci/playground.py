@@ -15,8 +15,14 @@ class Playground(Cog):
         
         self.t_ctx: dict[int, str] = {}
         self.c_ctx: dict[int, str] = {}
+
+        try:
+            self.fp_db = TinyDB('db/template_prompt.db')
+        except FileNotFoundError:
+            os.mkdir("db")
+            open("db/template_prompt.db").close()
+            self.fp_db = TinyDB('db/template_prompt.db')
         
-        self.fp_db = TinyDB('db/template_prompt.db')
         self.fp_prefix = os.getenv("FP_PREFIX")
         if self.fp_prefix is None:
             raise Exception("FP_PREFIX key in .env not found")
@@ -111,6 +117,11 @@ To list all fprompt:
     fprompt list [user]
 ```
     _user is optional argument_
+
+To see the prompt of fprompt:
+```
+    fprompt info <name>
+```
 """.format("{}", prefix=self.fp_prefix))
     
     @fprompt.command("create")
@@ -152,6 +163,13 @@ To list all fprompt:
             s.append("{}. {} by {}".format(i+1, d["name"], _u.name))
         await ctx.reply("```\n{}\n```".format('\n'.join(s)))
     
+    @fprompt.command("info")
+    async def fp_info(self, ctx: commands.Context, *, name: str):
+        t = self.get_template(name)
+        if not t:
+            await ctx.reply(f"No {name} fpromt found")
+            return
+        await ctx.reply(f"{name} prompt:\n```\n{t['prompt']}\n```")
     
     @Cog.listener()
     async def on_message(self, message: Message):
