@@ -24,12 +24,6 @@ class UserBotError(BotError):
         super().__init__(ctx, err, msg)
         self.set_footer(text="This is user fault")
 
-async def check_none(ctx: commands.Context, *a: object | None):
-    if None in a:
-        await ctx.reply(embed=UserBotError(ctx, "MissingArgument", f"Missing one or more argument: {a}"))
-        return True
-    return False
-
 async def text_to_fp(filename: str, txt: str):
     f = StringIO(txt)
     return File(fp=f, filename=filename)

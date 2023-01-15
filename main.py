@@ -14,12 +14,11 @@ if TOKEN is None:
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix=";;", intents=intents, help_command=None)
+bot = commands.Bot(command_prefix=";", intents=intents)
 
 bot.load_extensions(*(
     "davinci.playground",
-    "davinci.dalle",
-    "core.info"
+    "davinci.dalle"
 ))
 
 @bot.event
@@ -30,6 +29,9 @@ async def on_ready():
 async def on_command_error(ctx: commands.Context, err: Exception):
     if isinstance(err, commands.CommandNotFound):
         await ctx.reply(embed=UserBotError(ctx, "CommandNotFound", err.args[0]))
+        return
+    if isinstance(err, commands.MissingRequiredArgument):
+        await ctx.reply(embed=UserBotError(ctx, "MissingArgument", err.args[0]))
         return
     await ctx.reply(embed=InternalBotError(ctx, err.__class__.__name__, ','.join(err.args)))
     raise err

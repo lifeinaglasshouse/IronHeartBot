@@ -1,4 +1,4 @@
 davinci/__pycache__
 __pycache__
-core/__pycache__
 temp.env
+db/template_prompt.db
