@@ -12,9 +12,6 @@ class Playground(Cog):
     
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        
-        self.t_ctx: dict[int, str] = {}
-        self.c_ctx: dict[int, str] = {}
 
         try:
             self.fp_db = TinyDB('db/template_prompt.db')

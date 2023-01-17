@@ -1,0 +1,135 @@
+{
+    "type": <TagNode.DOSTMT: 6>,
+    "block": [
+        {
+            "type": <TagNode.ASSIGN: 4>,
+            "target": {
+                "type": <TagNode.REFVAR: 3>,
+                "name": "u"
+            },
+            "value": {
+                "type": <TagNode.BINOP: 1>,
+                "left": {
+                    "type": <TagNode.FNCALL: 5>,
+                    "caller": {
+                        "type": <TagNode.BINOP: 1>,
+                        "left": {
+                            "type": <TagNode.REFVAR: 3>,
+                            "name": "arg"
+                        },
+                        "right": "get",
+                        "op": "."
+                    },
+                    "args": {
+                        "type": <TagNode.LITERAL: 0>,
+                        "value": 0
+                    }
+                },
+                "right": {
+                    "type": <TagNode.REFVAR: 3>,
+                    "name": "user"
+                },
+                "op": "or"
+            }
+        },
+        {
+            "type": <TagNode.ASSIGN: 4>,
+            "target": {
+                "type": <TagNode.REFVAR: 3>,
+                "name": "r"
+            },
+            "value": {
+                "type": <TagNode.FNCALL: 5>,
+                "caller": {
+                    "type": <TagNode.REFVAR: 3>,
+                    "name": "rand"
+                },
+                "args": Tree(Token('RULE', 'args'), [
+                    {
+                        "type": <TagNode.LITERAL: 0>,
+                        "value": 1
+                    },
+                    {
+                        "type": <TagNode.LITERAL: 0>,
+                        "value": 12
+                    }
+                ])
+            }
+        },
+        {
+            "type": <TagNode.IFSTMT: 7>,
+            "condition": {
+                "type": <TagNode.BINOP: 1>,
+                "left": {
+                    "type": <TagNode.REFVAR: 3>,
+                    "name": "r"
+                },
+                "right": {
+                    "type": <TagNode.LITERAL: 0>,
+                    "value": 50
+                },
+                "op": ">"
+            },
+            "body": {
+                "type": <TagNode.RETSTMT: 8>,
+                "value": {
+                    "type": <TagNode.FNCALL: 5>,
+                    "caller": {
+                        "type": <TagNode.BINOP: 1>,
+                        "left": {
+                            "type": <TagNode.LITERAL: 0>,
+                            "value": "{} is based ({}%)"
+                        },
+                        "right": "f",
+                        "op": "."
+                    },
+                    "args": Tree(Token('RULE', 'args'), [
+                        {
+                            "type": <TagNode.BINOP: 1>,
+                            "left": {
+                                "type": <TagNode.REFVAR: 3>,
+                                "name": "u"
+                            },
+                            "right": "name",
+                            "op": "."
+                        },
+                        {
+                            "type": <TagNode.REFVAR: 3>,
+                            "name": "r"
+                        }
+                    ])
+                }
+            },
+            "else": {
+                "type": <TagNode.RETSTMT: 8>,
+                "value": {
+                    "type": <TagNode.FNCALL: 5>,
+                    "caller": {
+                        "type": <TagNode.BINOP: 1>,
+                        "left": {
+                            "type": <TagNode.LITERAL: 0>,
+                            "value": "{} is cringe ({}%)"
+                        },
+                        "right": "f",
+                        "op": "."
+                    },
+                    "args": Tree(Token('RULE', 'args'), [
+                        {
+                            "type": <TagNode.BINOP: 1>,
+                            "left": {
+                                "type": <TagNode.REFVAR: 3>,
+                                "name": "u"
+                            },
+                            "right": "name",
+                            "op": "."
+                        },
+                        {
+                            "type": <TagNode.REFVAR: 3>,
+                            "name": "r"
+                        }
+                    ])
+                }
+            }
+        }
+    ]
+}

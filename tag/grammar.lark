@@ -1,0 +1,78 @@
+%import common.WS
+%import common.CNAME -> NAME
+%import common.ESCAPED_STRING -> STRING
+
+%ignore WS
+
+start: block
+
+?block: "(" stmt ")"
+
+?stmt: dostmt
+     | ifstmt
+     | retstmt
+     | expr
+
+dostmt: "do" block*
+
+ifstmt: "if" "(" expr ")" block [block]
+
+retstmt: "return" [expr]
+
+?expr: logicalor
+
+?logicalor: logicaland
+          | logicaland /or/ logicalor -> binop
+
+?logicaland: equality
+           | equality /and/ logicaland -> binop
+
+?equality: comparison
+         | comparison /==/ equality -> binop
+         | comparison /!=/ equality -> binop
+
+?comparison: sum
+           | sum />/ comparison -> binop
+           | sum /</ comparison -> binop
+           | sum />=/ comparison -> binop
+           | sum /<=/ comparison -> binop
+
+?sum: product
+    | product /\+/ sum -> binop
+    | product /\-/ sum -> binop
+
+?product: atom
+        | atom /\*/ product -> binop
+        | atom /\// product -> binop
+
+?atom: plank
+     | "+" atom -> unary
+     | "-" atom -> unary
+     | "not" atom -> unary
+     | assign
+
+?plank: literal
+      | "(" expr ")"
+      | var
+      | dot
+      | fncall
+
+fncall: plank "(" [expr ("," expr)*] ")"
+
+?var: declvar
+    | refvar
+
+refvar: NAME
+declvar: "decl" NAME ("," NAME)*
+assign: expr "=" expr
+
+?dot: plank
+    | plank /\./ NAME -> binop
+
+?literal: STRING -> string
+        | INTEGER -> integer
+        | FLOAT -> real
+
+
+INTEGER: /[0-9]+/
+FLOAT: /[0-9]*\.[0-9]*/
