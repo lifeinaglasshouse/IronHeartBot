@@ -2,3 +2,4 @@ davinci/__pycache__
 __pycache__
 temp.env
 db/template_prompt.db
+db/tag.db

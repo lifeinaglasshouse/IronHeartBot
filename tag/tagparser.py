@@ -18,6 +18,7 @@ class TagNode(enum.Enum):
     DOSTMT = 7
     IFSTMT = 8
     RETSTMT = 9
+    FORLOOP = 10
 
 class TagAST(Transformer):
     
@@ -42,13 +43,37 @@ class TagAST(Transformer):
         }
     
     def string(self, t: list[Token]):
-        (v,) = t
+        v = t[0][1:-1]
+        
+        nv = ''
+        i = 0
+        while True:
+            if i >= len(v):
+                break
+            c = v[i]
+            if c == '\\':
+                i += 1
+                c = v[i]
+                match c:
+                    case 'n':
+                        nv += '\n'
+                    case 't':
+                        nv += '\t'
+                    case 'r':
+                        nv += '\r'
+                    case _:
+                        nv += c
+                i += 1
+                continue
+            nv += c
+            i += 1
+        
         return {
             "type": TagNode.LITERAL,
-            "value": v[1:-1]
+            "value": nv
         }
     
-    def binop(self, t: tuple[dict, Token, dict]):
+    def binop(self, t: tuple[dict, Token, dict | str]):
         l, o, r = t
         return {
             "type": TagNode.BINOP,
@@ -115,6 +140,14 @@ class TagAST(Transformer):
         return {
             "type": TagNode.RETSTMT,
             "value": t[0]
+        }
+    
+    def forloop(self, t: tuple[str, dict, dict]):
+        return {
+            "type": TagNode.FORLOOP,
+            "name": t[0],
+            "value": t[1],
+            "body": t[2]
         }
 
 tagtransformer = TagAST()

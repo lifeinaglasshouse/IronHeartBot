@@ -32,6 +32,11 @@ BOT_TOKEN=your bot token here
 TEST_TOKEN=you don't need this usually. just remove it
 ```
 
+Now you need to create db folder for the database. IronHeart use TinyDB (a simple database that use json format)
+so you need to setup a sql or anything.
+
+_Note: If you get an error like file not found, try create `template_prompt.db` and `tag.db` inside `db` directory._
+
 You now can run the bot.
 
 ## LICENSE

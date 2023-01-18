@@ -23,7 +23,7 @@ bot = commands.Bot(command_prefix=";", intents=intents)
 bot.load_extensions(*(
     "davinci.playground",
     "davinci.dalle",
-    "tag.tag"
+    "tag.tag",
 ))
 
 @bot.event

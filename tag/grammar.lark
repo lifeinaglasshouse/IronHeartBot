@@ -30,6 +30,7 @@ retstmt: "return" [expr]
 ?equality: comparison
          | comparison /==/ equality -> binop
          | comparison /!=/ equality -> binop
+         | comparison /is/ equality -> binop
 
 ?comparison: sum
            | sum />/ comparison -> binop
@@ -55,6 +56,7 @@ retstmt: "return" [expr]
       | "(" expr ")"
       | var
       | dot
+      | forloop
       | fncall
 
 fncall: plank "(" [expr ("," expr)*] ")"
@@ -68,6 +70,8 @@ assign: expr "=" expr
 
 ?dot: plank
     | plank /\./ NAME -> binop
+
+forloop: "for" NAME "in" expr block
 
 ?literal: STRING -> string
         | INTEGER -> integer
