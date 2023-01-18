@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from common import InternalBotError, UserBotError
 
-load_dotenv("temp.env")
-#load_dotenv()
+#load_dotenv("temp.env")
+load_dotenv()
 
 TOKEN = os.getenv("BOT_TOKEN")
 #TOKEN = os.getenv("TEST_TOKEN")
